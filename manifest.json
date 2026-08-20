@@ -1,0 +1,36 @@
+{
+  "name": "Anotador de fotos - Vepar",
+  "short_name": "Vepar",
+  "description": "Anotador de fotos con círculos de colores para documentación de trabajos Kruger",
+  "start_url": "./foto_anotada.html",
+  "display": "standalone",
+  "background_color": "#17191c",
+  "theme_color": "#17191c",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
