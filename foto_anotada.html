@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Anotador de fotos — Kruger</title>
+<style>
+  :root {
+    --bg: #17191c;
+    --panel: #1f2226;
+    --panel-2: #24282d;
+    --border: #33383e;
+    --text: #e8e6e1;
+    --text-dim: #9a9da2;
+    --accent: #d0d5da;
+    --mono: 'SF Mono', 'Consolas', 'Menlo', monospace;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+  header {
+    padding: 18px 16px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  header .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  header h1 { font-size: 17px; font-weight: 600; margin: 0; }
+  main { padding: 16px; max-width: 640px; margin: 0 auto; }
+
+  .empty-state {
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 48px 20px;
+    text-align: center;
+    color: var(--text-dim);
+  }
+  .empty-state .icon { font-size: 28px; margin-bottom: 10px; opacity: 0.6; }
+  .picker-btn {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 12px 22px;
+    background: var(--accent);
+    color: #16181a;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  input[type="file"] { display: none; }
+
+  #workArea { display: none; }
+  #workArea.show { display: block; }
+
+  .canvas-wrap {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #000;
+    touch-action: none;
+  }
+  canvas { display: block; width: 100%; height: auto; touch-action: none; }
+
+  .toolbar {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .color-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    position: relative;
+  }
+  .color-btn.active { border-color: var(--text); }
+  .color-btn[data-color="red"] { background: #e5484d; }
+  .color-btn[data-color="blue"] { background: #3b82f6; }
+  .color-btn[data-color="green"] { background: #22c55e; }
+  .color-btn[data-color="yellow"] { background: #eab308; }
+
+  .tool-actions { display: flex; gap: 8px; margin-left: auto; }
+  .icon-btn {
+    padding: 8px 12px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .field-group { margin-top: 20px; }
+  .field-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+  }
+  input[type="text"], textarea {
+    width: 100%;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 12px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+  }
+  textarea { min-height: 60px; }
+
+  #descSection { display: flex; flex-direction: column; gap: 14px; margin-top: 10px; }
+  .desc-item { display: flex; flex-direction: column; gap: 6px; }
+  .desc-item .swatch-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .swatch-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .desc-empty { color: var(--text-dim); font-size: 13px; font-style: italic; }
+
+  .btn-row { display: flex; gap: 10px; margin-top: 22px; }
+  .btn-primary, .btn-secondary {
+    flex: 1;
+    padding: 13px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-primary { background: var(--accent); color: #16181a; }
+  .btn-secondary { background: var(--panel-2); color: var(--text); border: 1px solid var(--border); }
+
+  #previewBlock {
+    display: none;
+    margin-top: 20px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  #previewBlock.show { display: block; }
+  #previewText {
+    white-space: pre-wrap;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  #toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Anotador de fotos</h1>
+  <span class="tag">Kruger</span>
+</header>
+
+<main>
+  <div id="emptyState" class="empty-state">
+    <div class="icon">📷</div>
+    <div>Elige una foto para empezar a marcarla</div>
+    <button class="picker-btn" onclick="document.getElementById('fileInput').click()">Elegir imagen</button>
+    <input type="file" id="fileInput" accept="image/*">
+  </div>
+
+  <div id="workArea">
+    <div class="canvas-wrap">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="toolbar">
+      <div class="color-btn active" data-color="red" style="--c:#e5484d" onclick="selectColor('red')"></div>
+      <div class="color-btn" data-color="blue" onclick="selectColor('blue')"></div>
+      <div class="color-btn" data-color="green" onclick="selectColor('green')"></div>
+      <div class="color-btn" data-color="yellow" onclick="selectColor('yellow')"></div>
+      <div class="tool-actions">
+        <button class="icon-btn" onclick="undoLast()">Deshacer</button>
+        <button class="icon-btn" onclick="clearAll()">Borrar todo</button>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Nombre del archivo</label>
+      <input type="text" id="fileName" placeholder="ej. WO-2439335-detector-conexion">
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Descripción general</label>
+      <textarea id="generalDesc" placeholder="Contexto general de la foto (opcional)"></textarea>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Marcas por color</label>
+      <div id="descSection">
+        <div class="desc-empty">Dibuja un círculo sobre la foto para que aparezca aquí su descripción.</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="downloadImage()">Descargar imagen</button>
+      <button class="btn-primary" onclick="generateExport()">Generar texto</button>
+    </div>
+
+    <div id="previewBlock">
+      <label class="field-label">Listo para copiar</label>
+      <div id="previewText"></div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="copyPreview()">Copiar texto</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="toast"></div>
+
+<script>
+const colorMap = { red: '#e5484d', blue: '#3b82f6', green: '#22c55e', yellow: '#eab308' };
+const colorNames = { red: 'Círculo rojo', blue: 'Círculo azul', green: 'Círculo verde', yellow: 'Círculo amarillo' };
+
+const fileInput = document.getElementById('fileInput');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const img = new Image();
+
+let currentColor = 'red';
+let usedColors = new Set();
+let descValues = {};
+let strokes = []; // {color, points: [{x,y}]}
+let drawing = false;
+let currentStroke = null;
+let baseWidth = 0, baseHeight = 0;
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    img.onload = () => {
+      document.getElementById('emptyState').style.display = 'none';
+      document.getElementById('workArea').classList.add('show');
+      setupCanvas();
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+function setupCanvas() {
+  baseWidth = img.naturalWidth;
+  baseHeight = img.naturalHeight;
+  canvas.width = baseWidth;
+  canvas.height = baseHeight;
+  redraw();
+}
+
+function redraw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  strokes.forEach(s => drawStroke(s));
+}
+
+function drawStroke(s) {
+  if (s.points.length < 2) return;
+  ctx.strokeStyle = colorMap[s.color];
+  ctx.lineWidth = Math.max(4, canvas.width * 0.006);
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(s.points[0].x, s.points[0].y);
+  for (let i = 1; i < s.points.length; i++) {
+    ctx.lineTo(s.points[i].x, s.points[i].y);
+  }
+  ctx.stroke();
+}
+
+function getPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  return { x: (clientX - rect.left) * scaleX, y: (clientY - rect.top) * scaleY };
+}
+
+function startDraw(e) {
+  e.preventDefault();
+  drawing = true;
+  currentStroke = { color: currentColor, points: [getPos(e)] };
+}
+function moveDraw(e) {
+  if (!drawing) return;
+  e.preventDefault();
+  currentStroke.points.push(getPos(e));
+  redraw();
+  drawStroke(currentStroke);
+}
+function endDraw(e) {
+  if (!drawing) return;
+  drawing = false;
+  if (currentStroke.points.length > 2) {
+    strokes.push(currentStroke);
+    usedColors.add(currentStroke.color);
+    updateDescSection();
+  }
+  currentStroke = null;
+  redraw();
+}
+
+canvas.addEventListener('mousedown', startDraw);
+canvas.addEventListener('mousemove', moveDraw);
+canvas.addEventListener('mouseup', endDraw);
+canvas.addEventListener('mouseleave', endDraw);
+canvas.addEventListener('touchstart', startDraw, { passive: false });
+canvas.addEventListener('touchmove', moveDraw, { passive: false });
+canvas.addEventListener('touchend', endDraw, { passive: false });
+
+function selectColor(c) {
+  currentColor = c;
+  document.querySelectorAll('.color-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.color === c);
+  });
+}
+
+function undoLast() {
+  if (strokes.length === 0) return;
+  const removed = strokes.pop();
+  const stillUsed = strokes.some(s => s.color === removed.color);
+  if (!stillUsed) {
+    usedColors.delete(removed.color);
+    delete descValues[removed.color];
+  }
+  redraw();
+  updateDescSection();
+}
+
+function clearAll() {
+  strokes = [];
+  usedColors.clear();
+  descValues = {};
+  redraw();
+  updateDescSection();
+}
+
+function updateDescSection() {
+  const descSection = document.getElementById('descSection');
+  const colorsInUse = [...usedColors];
+  if (colorsInUse.length === 0) {
+    descSection.innerHTML = '<div class="desc-empty">Dibuja un círculo sobre la foto para que aparezca aquí su descripción.</div>';
+    return;
+  }
+  descSection.innerHTML = '';
+  colorsInUse.forEach(c => {
+    const item = document.createElement('div');
+    item.className = 'desc-item';
+    item.innerHTML = `
+      <div class="swatch-label">
+        <span class="swatch-dot" style="background:${colorMap[c]}"></span>
+        ${colorNames[c]}
+      </div>
+      <textarea data-color="${c}" placeholder="¿Qué es esto y para qué sirve?">${descValues[c] || ''}</textarea>
+    `;
+    descSection.appendChild(item);
+  });
+  descSection.querySelectorAll('textarea').forEach(ta => {
+    ta.addEventListener('input', (e) => {
+      descValues[e.target.dataset.color] = e.target.value;
+    });
+  });
+}
+
+function generateExport() {
+  const fname = document.getElementById('fileName').value.trim() || '(sin nombre)';
+  const general = document.getElementById('generalDesc').value.trim();
+  let lines = [];
+  lines.push(`ARCHIVO: ${fname}`);
+  if (general) {
+    lines.push('');
+    lines.push(`DESCRIPCIÓN GENERAL: ${general}`);
+  }
+  const colorsInUse = [...usedColors];
+  if (colorsInUse.length > 0) {
+    lines.push('');
+    lines.push('MARCAS:');
+    colorsInUse.forEach(c => {
+      const name = colorNames[c] || c;
+      const desc = (descValues[c] || '').trim() || '(sin descripción)';
+      lines.push(`  • ${name}: ${desc}`);
+    });
+  }
+  document.getElementById('previewText').textContent = lines.join('\n');
+  document.getElementById('previewBlock').classList.add('show');
+  document.getElementById('previewBlock').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function copyPreview() {
+  const text = document.getElementById('previewText').textContent;
+  navigator.clipboard.writeText(text).then(() => showToast('Texto copiado'));
+}
+
+function downloadImage() {
+  const fname = document.getElementById('fileName').value.trim() || 'foto-anotada';
+  const link = document.createElement('a');
+  link.download = fname.replace(/[^a-z0-9\-_]+/gi, '_') + '.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+  showToast('Imagen descargada');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+window.addEventListener('resize', () => {
+  if (img.src) redraw();
+});
+</script>
+
+</body>
+</html>
