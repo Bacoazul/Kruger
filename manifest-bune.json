@@ -1,0 +1,36 @@
+{
+  "name": "Bune — Inventario de Hardware",
+  "short_name": "Bune",
+  "description": "Inventario interactivo del hardware de Chucho",
+  "start_url": "./bune.html",
+  "display": "standalone",
+  "background_color": "#0d0b08",
+  "theme_color": "#0d0b08",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-bune-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-bune-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-bune-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-bune-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
