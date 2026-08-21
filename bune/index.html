@@ -362,6 +362,9 @@
   <div class="section-label">Red</div>
   <div class="grid" id="grid-red"></div>
 
+  <div class="section-label">Sala</div>
+  <div class="grid" id="grid-sala"></div>
+
   <div class="section-label">Móvil</div>
   <div class="grid" id="grid-movil"></div>
 
@@ -387,6 +390,22 @@
    ========================================================= */
 const DEVICES = {
   computo: [
+    {
+      id:"thinkstation",
+      icon:"🖥️",
+      name:"PC emulador — ThinkStation P320 SFF",
+      model:"Machine Type 30BJ, S/N MJ077LNP",
+      status:"completo",
+      specs:[
+        ["CPU","Intel Xeon E3-1245 v5"],
+        ["RAM","16GB DDR4"],
+        ["GPU","Intel HD Graphics P530 (integrada)"],
+        ["Disco","SSD SATA 2.5\" 256GB"],
+        ["SO","Ninguno — destinado a Batocera"],
+        ["Origen","Facebook Marketplace (Nox Gaming), $250 CAD total incl. impuestos"]
+      ],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1DDoKvI6weU3oy_q2PJcNPhJy1-0O8ykE"}]
+    },
     {
       id:"torre",
       icon:"🖥️",
@@ -431,6 +450,9 @@ const DEVICES = {
     }
   ],
   perifericos: [
+    { id:"teclado-k400", icon:"⌨️", name:"Teclado — Logitech K400 Plus", model:"Y-R0055", status:"completo",
+      specs:[["Conexión","Inalámbrico 2.4GHz + receptor USB"],["Extras","Touchpad integrado"],["Uso","Control del ThinkStation/Batocera desde el sofá"]],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1SEfYfKnkt3JGMsqAH4U33qCCeFMIPNNY"}] },
     { id:"monitor", icon:"🖼️", name:"Monitor", model:"ASUS ROG Strix XG32WCS", status:"completo",
       specs:[
         ["Panel","31.5\" Fast VA, 2560x1440 (QHD)"],
@@ -455,7 +477,8 @@ const DEVICES = {
     { id:"mouse", icon:"🖱️", name:"Mouse", model:"Lenovo genérico USB", status:"completo",
       specs:[["Conexión","USB con cable, plug-and-play"],["Nota","Genérico, sin software/config adicional"]],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1vterfhYFVoKMK6Ick9MF0WMMuVOCTdtP"}] },
-    { id:"control", icon:"🎮", name:"Control", model:"Xbox Series X Advanced Wired Controller", status:"pendiente", specs:[],
+    { id:"control", icon:"🎮", name:"Control", model:"PowerA Advantage Wired (Fortnite Midas) XBGP0238", status:"completo",
+      specs:[["Conexión","USB con cable, licenciado Xbox"],["Extras","2 botones traseros mapeables"]],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1HY4J0QonZ78mC1cLOUEqowajvtRekl6I"}] },
     { id:"audio-bt", icon:"🎧", name:"Audífonos Bluetooth", model:"Sony WH-CH520", status:"completo",
       specs:[
@@ -585,6 +608,17 @@ const DEVICES = {
         ["⚠️ Falta","Almacenamiento exacto, color, fecha de compra"]
       ],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1AM_Vaaqg_xPX0bCV98cAdRWwhGIuCGQf"},{label:"🌐 Pixel Guidebook", url:"https://guidebooks.google.com/pixel"}] }
+  ],
+  sala: [
+    { id:"tv", icon:"📺", name:"Televisor", model:"Hisense 50R63N (Roku TV)", status:"completo",
+      specs:[
+        ["Pantalla","49.5\" VA, 4K UHD (3840x2160)"],
+        ["HDR","Dolby Vision"],
+        ["Sistema","Roku TV, Game Mode PLUS 60Hz VRR ALLM"],
+        ["Voz","Google Assistant, Alexa"],
+        ["Fabricación","22 mayo 2024"]
+      ],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1srBbJAVyXYiQXEsc1ECt7HHjyPHthu45"}] }
   ]
 };
 
@@ -607,7 +641,7 @@ function renderGrid(containerId, items){
 }
 
 function allDevices(){
-  return [...DEVICES.computo, ...DEVICES.perifericos, ...DEVICES.red, ...DEVICES.movil];
+  return [...DEVICES.computo, ...DEVICES.perifericos, ...DEVICES.red, ...DEVICES.sala, ...DEVICES.movil];
 }
 
 function renderStats(){
@@ -649,6 +683,7 @@ document.getElementById("overlay").addEventListener("click", e=>{
 renderGrid("grid-computo", DEVICES.computo);
 renderGrid("grid-perifericos", DEVICES.perifericos);
 renderGrid("grid-red", DEVICES.red);
+renderGrid("grid-sala", DEVICES.sala);
 renderGrid("grid-movil", DEVICES.movil);
 renderStats();
 </script>
