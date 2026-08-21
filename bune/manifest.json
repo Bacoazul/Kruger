@@ -2,6 +2,7 @@
   "name": "Bune — Inventario de Hardware",
   "short_name": "Bune",
   "description": "Inventario interactivo del hardware de Chucho",
+  "id": "/bune/",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
