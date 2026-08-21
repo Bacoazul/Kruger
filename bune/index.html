@@ -359,6 +359,9 @@
   <div class="section-label">Periféricos</div>
   <div class="grid" id="grid-perifericos"></div>
 
+  <div class="section-label">Red</div>
+  <div class="grid" id="grid-red"></div>
+
   <div class="section-label">Móvil</div>
   <div class="grid" id="grid-movil"></div>
 
@@ -402,7 +405,7 @@ const DEVICES = {
         ["Serial","PF5MCTJF"],
         ["PSU","⚠️ no expuesto por software — leer etiqueta física"],
         ["Gabinete / color","⚠️ Desktop (chasis tipo 3) — color pendiente foto"],
-        ["Fecha de compra","⚠️ pendiente"]
+        ["Fecha de compra","20 nov 2025 — $5,129.99 CAD (Lenovo.com CA)"]
       ],
       links:[
         {label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1eHSxEaS-oT_umbOc-65JpRRPggSuPZfl"}
@@ -436,7 +439,7 @@ const DEVICES = {
         ["Curvatura","1500R"],
         ["Puertos","DisplayPort 1.4 (HBR3), HDMI 2.0, USB-C (DP Alt Mode)"],
         ["Serial (EDID)","T7LMAS0500"],
-        ["Fecha de compra","⚠️ pendiente"]
+        ["Fecha de compra","⚠️ no encontrada en órdenes revisadas"]
       ],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1i4iXAZc6-0yGIDharHkeRcvZv_auhd9L"}] },
     { id:"teclado", icon:"⌨️", name:"Teclado", model:"Lenovo Legion K500 RGB Mechanical (GY40T26478)", status:"completo",
@@ -446,23 +449,31 @@ const DEVICES = {
         ["RGB","16.8M colores, 3 zonas, keycaps láser"],
         ["Hotkeys programables","7"],
         ["Conexión","USB con cable (1.8m trenzado)"],
-        ["Fecha de compra","⚠️ pendiente"]
+        ["Fecha de compra","20 nov 2025 — $74.19 CAD (bundle con torre)"]
       ],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1hO2HgPkaztJmIRv7Pfbz7me04q8pA0D4"}] },
     { id:"mouse", icon:"🖱️", name:"Mouse", model:"Lenovo USB Optical Mouse", status:"pendiente", specs:[],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1vterfhYFVoKMK6Ick9MF0WMMuVOCTdtP"}] },
     { id:"control", icon:"🎮", name:"Control", model:"Xbox Series X Advanced Wired Controller", status:"pendiente", specs:[],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1HY4J0QonZ78mC1cLOUEqowajvtRekl6I"}] },
-    { id:"audio-bt", icon:"🎧", name:"Audífonos Bluetooth", model:"Sony WH-CH520", status:"pendiente", specs:[],
+    { id:"audio-bt", icon:"🎧", name:"Audífonos Bluetooth", model:"Sony WH-CH520", status:"completo",
+      specs:[
+        ["Drivers","30mm"],
+        ["Bluetooth","5.2 — Fast Pair, multipoint"],
+        ["Batería","Hasta 50h, carga rápida 3min=1.5h"],
+        ["Respuesta","20Hz–20,000Hz"],
+        ["Condición","Comprado usado (Amazon Warehouse, Como nuevo)"],
+        ["Fecha de compra","13 jul 2025 — $46.54 CAD"]
+      ],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1aEiLRX6gQB2oQvwoz7t0vMiccU4n82iH"}] },
-    { id:"audio-usb", icon:"🎧", name:"Audífonos USB", model:"Corsair HS80 RGB USB Wired", status:"completo",
+    { id:"audio-usb", icon:"🎧", name:"Audífonos USB", model:"Corsair HS80 RGB USB Wired — Carbon", status:"completo",
       specs:[
         ["Drivers","50mm neodimio"],
         ["Respuesta audio","20Hz–40,000Hz"],
         ["Respuesta mic","100Hz–10,000Hz, broadcast quality"],
         ["Surround","Dolby Audio 7.1 (USB)"],
-        ["Color","⚠️ Carbon o White — no confirmado por USB ID"],
-        ["Fecha de compra","⚠️ pendiente"]
+        ["Color","Carbon (confirmado)"],
+        ["⚠️ Historial","3er ejemplar — 2 reemplazos de garantía (13 mar 2026 $154.99, 10 may 2026 gratis). Compra original no encontrada."]
       ],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1qTyICs0Z_lz1-w8I5ukGUqYbhjHg47I4"}] },
     { id:"webcam", icon:"📷", name:"Webcam", model:"Anker PowerConf C200 (2K)", status:"completo",
@@ -472,19 +483,28 @@ const DEVICES = {
         ["Enfoque","Autofocus"],
         ["Micrófonos","Dual estéreo con cancelación de ruido AI"],
         ["Extras","Corrección poca luz, cubierta de privacidad"],
-        ["Fecha de compra","⚠️ pendiente"]
+        ["Fecha de compra","14 feb 2026 — $79.99 CAD"]
       ],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1W4X2QP3Ku1QYdvxIUKTAXuqe-tAqpcrR"}] },
-    { id:"hub", icon:"🔌", name:"Hub USB-C", model:"Anker 555 (8-in-1)", status:"pendiente", specs:[],
-      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1pdQBdMCq26ltha9UGAFlc6V5KzQXmJc8"}] },
-    { id:"ups", icon:"🔋", name:"UPS — CyberPower", model:"⚠️ modelo exacto pendiente", status:"progreso",
+    { id:"hub", icon:"🔌", name:"Hub USB-C", model:"Anker 555 (8-in-1)", status:"completo",
       specs:[
-        ["Fabricante","Cyber Power Systems, Inc."],
-        ["Identidad USB","VID_0764 PID_0601 (HID Power Device estándar)"],
-        ["Software oficial","PowerPanel Personal (instalado en la torre)"],
-        ["Conectado a","Torre — alimentación + monitoreo USB"],
-        ["Modelo / VA / W","⚠️ pendiente — abrir PowerPanel Personal o foto de etiqueta"],
-        ["Fecha de compra","⚠️ pendiente"]
+        ["Power Delivery","85W passthrough"],
+        ["Video","HDMI 4K60Hz"],
+        ["Datos","USB-C 10Gbps + 2x USB-A"],
+        ["Red","Ethernet Gigabit"],
+        ["Lector tarjetas","microSD + SD"],
+        ["Fecha de compra","14 feb 2026 — $54.99 CAD"]
+      ],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1pdQBdMCq26ltha9UGAFlc6V5KzQXmJc8"}] },
+    { id:"ups", icon:"🔋", name:"UPS — CyberPower CP1500PFCLCD", model:"CP1500PFCLCD", status:"completo",
+      specs:[
+        ["Capacidad","1500VA / 1000W"],
+        ["Topología","Line Interactive, Sinewave"],
+        ["Tomas","12 total (6 batería+surge, 6 solo surge)"],
+        ["Baterías","2x 12V/9Ah — cartucho reemplazo RB1290X2"],
+        ["Runtime","2.5min full load / 10min half load"],
+        ["Software","PowerPanel Personal (instalado en la torre)"],
+        ["Fecha de compra","10 may 2026 — $298.98 CAD"]
       ],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1V-QGvBb4N43TP-ueT0-8eovVdsxnDB8W"}] },
     { id:"8bitdo", icon:"🕹️", name:"Arcade Stick — 8BitDo", model:"80FE", status:"completo",
@@ -501,7 +521,40 @@ const DEVICES = {
         {label:"📄 Software Ultimate", url:"https://support.8bitdo.com/ultimate-software.html"},
         {label:"🌐 Fabricante", url:"https://www.8bitdo.com/arcade-stick/"}
       ]
-    }
+    },
+    { id:"monitor2", icon:"🖼️", name:"Monitor #2 — Acer Nitro ED0", model:"EDA270U Pbmiipx", status:"progreso",
+      specs:[
+        ["Panel","27\" VA curvo, 2560x1440 (WQHD)"],
+        ["Refresh rate","170Hz, 1ms (VRB)"],
+        ["Curvatura","1500R, ZeroFrame"],
+        ["Sync","AMD FreeSync Premium"],
+        ["Puertos","DisplayPort 1.2, 2x HDMI 2.0, Audio Out"],
+        ["⚠️ Estado","No detectado en el último scan EDID — confirmar si sigue conectado"],
+        ["Fecha de compra","13 may 2026 — $199.99 CAD"]
+      ],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1XaHlA4OoG2sNr70o9C9-JXfbf390mwLp"}] }
+  ],
+  red: [
+    { id:"router", icon:"📡", name:"Router — TP-Link Archer BE550", model:"BE9300", status:"completo",
+      specs:[
+        ["WiFi","WiFi 7 tri-banda (2.4/5/6GHz)"],
+        ["Velocidad total","BE9300 — 9.3Gbps combinado"],
+        ["Puertos","1x WAN 2.5G, 4x LAN 2.5G, 1x USB 3.0"],
+        ["Antenas","6 internas"],
+        ["Mesh","EasyMesh compatible"],
+        ["Fecha de compra","28 nov 2025 — $228.99 CAD"]
+      ],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1TY9iKhsEeo0qLJpHdfdLc4YdJkvQ-pHu"}] },
+    { id:"switch", icon:"🔀", name:"Switch — D-Link DGS-105GL", model:"DGS-105GL", status:"completo",
+      specs:[
+        ["Puertos","5x Gigabit Ethernet"],
+        ["Diseño","Metal, fanless, low profile"],
+        ["Configuración","Plug-and-play, no administrado"],
+        ["Eficiencia","IEEE 802.3az (EEE)"],
+        ["QoS","Sí"],
+        ["Fecha de compra","19 ago 2026 — $19.98 CAD"]
+      ],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1lMfOlq-s_qfLI9cqixxQp1ULBZ0A07qZ"}] }
   ],
   movil: [
     { id:"pixel", icon:"📱", name:"Móvil", model:"Google Pixel 9 Pro", status:"pendiente", specs:[],
@@ -528,7 +581,7 @@ function renderGrid(containerId, items){
 }
 
 function allDevices(){
-  return [...DEVICES.computo, ...DEVICES.perifericos, ...DEVICES.movil];
+  return [...DEVICES.computo, ...DEVICES.perifericos, ...DEVICES.red, ...DEVICES.movil];
 }
 
 function renderStats(){
@@ -569,6 +622,7 @@ document.getElementById("overlay").addEventListener("click", e=>{
 
 renderGrid("grid-computo", DEVICES.computo);
 renderGrid("grid-perifericos", DEVICES.perifericos);
+renderGrid("grid-red", DEVICES.red);
 renderGrid("grid-movil", DEVICES.movil);
 renderStats();
 </script>
