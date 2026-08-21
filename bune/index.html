@@ -393,13 +393,15 @@ const DEVICES = {
       specs:[
         ["CPU","Intel Core Ultra 9 285K (24 threads)"],
         ["GPU","RTX 5090 32GB"],
-        ["RAM","64GB DDR5"],
+        ["RAM","64GB DDR5-5600 (2x32GB SK Hynix, dual channel)"],
         ["Almacenamiento","Samsung NVMe 2TB (MZVL22T0HDLB-00BLL)"],
         ["Red","Realtek 2.5GbE + Intel Wi-Fi 6E AX211"],
         ["Bluetooth","Intel Wireless"],
-        ["PSU","—"],
-        ["Gabinete / color","—"],
-        ["Fecha de compra","—"]
+        ["BIOS","O67KT38A (release 2026-07-02)"],
+        ["Serial","PF5MCTJF"],
+        ["PSU","⚠️ no expuesto por software — leer etiqueta física"],
+        ["Gabinete / color","⚠️ Desktop (chasis tipo 3) — color pendiente foto"],
+        ["Fecha de compra","⚠️ pendiente"]
       ],
       links:[
         {label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1eHSxEaS-oT_umbOc-65JpRRPggSuPZfl"}
@@ -425,9 +427,26 @@ const DEVICES = {
     }
   ],
   perifericos: [
-    { id:"monitor", icon:"🖼️", name:"Monitor", model:"ASUS ROG Strix XG32WCS", status:"pendiente", specs:[],
+    { id:"monitor", icon:"🖼️", name:"Monitor", model:"ASUS ROG Strix XG32WCS", status:"completo",
+      specs:[
+        ["Panel","31.5\" Fast VA, 2560x1440 (QHD)"],
+        ["Refresh rate","180Hz, 1ms (GTG)"],
+        ["HDR","DisplayHDR 400, HDR10"],
+        ["Curvatura","1500R"],
+        ["Puertos","DisplayPort 1.4 (HBR3), HDMI 2.0, USB-C (DP Alt Mode)"],
+        ["Serial (EDID)","T7LMAS0500"],
+        ["Fecha de compra","⚠️ pendiente"]
+      ],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1i4iXAZc6-0yGIDharHkeRcvZv_auhd9L"}] },
-    { id:"teclado", icon:"⌨️", name:"Teclado", model:"Lenovo Legion K500 RGB Mechanical", status:"pendiente", specs:[],
+    { id:"teclado", icon:"⌨️", name:"Teclado", model:"Lenovo Legion K500 RGB Mechanical (GY40T26478)", status:"completo",
+      specs:[
+        ["Switches","Mecánicos rojos, 50M clicks"],
+        ["Layout","Full-size 104 teclas, US English, N-key rollover"],
+        ["RGB","16.8M colores, 3 zonas, keycaps láser"],
+        ["Hotkeys programables","7"],
+        ["Conexión","USB con cable (1.8m trenzado)"],
+        ["Fecha de compra","⚠️ pendiente"]
+      ],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1hO2HgPkaztJmIRv7Pfbz7me04q8pA0D4"}] },
     { id:"mouse", icon:"🖱️", name:"Mouse", model:"Lenovo USB Optical Mouse", status:"pendiente", specs:[],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1vterfhYFVoKMK6Ick9MF0WMMuVOCTdtP"}] },
@@ -435,12 +454,38 @@ const DEVICES = {
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1HY4J0QonZ78mC1cLOUEqowajvtRekl6I"}] },
     { id:"audio-bt", icon:"🎧", name:"Audífonos Bluetooth", model:"Sony WH-CH520", status:"pendiente", specs:[],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1aEiLRX6gQB2oQvwoz7t0vMiccU4n82iH"}] },
-    { id:"audio-usb", icon:"🎧", name:"Audífonos USB", model:"Corsair HS80 RGB", status:"pendiente", specs:[],
+    { id:"audio-usb", icon:"🎧", name:"Audífonos USB", model:"Corsair HS80 RGB USB Wired", status:"completo",
+      specs:[
+        ["Drivers","50mm neodimio"],
+        ["Respuesta audio","20Hz–40,000Hz"],
+        ["Respuesta mic","100Hz–10,000Hz, broadcast quality"],
+        ["Surround","Dolby Audio 7.1 (USB)"],
+        ["Color","⚠️ Carbon o White — no confirmado por USB ID"],
+        ["Fecha de compra","⚠️ pendiente"]
+      ],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1qTyICs0Z_lz1-w8I5ukGUqYbhjHg47I4"}] },
-    { id:"webcam", icon:"📷", name:"Webcam", model:"Anker PowerConf C200 (2K)", status:"pendiente", specs:[],
+    { id:"webcam", icon:"📷", name:"Webcam", model:"Anker PowerConf C200 (2K)", status:"completo",
+      specs:[
+        ["Resolución","1440p (2K), hasta 30fps"],
+        ["FOV","Ajustable 65°/78°/95° (software AnkerWork)"],
+        ["Enfoque","Autofocus"],
+        ["Micrófonos","Dual estéreo con cancelación de ruido AI"],
+        ["Extras","Corrección poca luz, cubierta de privacidad"],
+        ["Fecha de compra","⚠️ pendiente"]
+      ],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1W4X2QP3Ku1QYdvxIUKTAXuqe-tAqpcrR"}] },
     { id:"hub", icon:"🔌", name:"Hub USB-C", model:"Anker 555 (8-in-1)", status:"pendiente", specs:[],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1pdQBdMCq26ltha9UGAFlc6V5KzQXmJc8"}] },
+    { id:"ups", icon:"🔋", name:"UPS — CyberPower", model:"⚠️ modelo exacto pendiente", status:"progreso",
+      specs:[
+        ["Fabricante","Cyber Power Systems, Inc."],
+        ["Identidad USB","VID_0764 PID_0601 (HID Power Device estándar)"],
+        ["Software oficial","PowerPanel Personal (instalado en la torre)"],
+        ["Conectado a","Torre — alimentación + monitoreo USB"],
+        ["Modelo / VA / W","⚠️ pendiente — abrir PowerPanel Personal o foto de etiqueta"],
+        ["Fecha de compra","⚠️ pendiente"]
+      ],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1V-QGvBb4N43TP-ueT0-8eovVdsxnDB8W"}] },
     { id:"8bitdo", icon:"🕹️", name:"Arcade Stick — 8BitDo", model:"80FE", status:"completo",
       specs:[
         ["Conexiones","Bluetooth, 2.4G (receptor incluido), USB-C"],
