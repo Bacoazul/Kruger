@@ -559,26 +559,30 @@ const DEVICES = {
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1XaHlA4OoG2sNr70o9C9-JXfbf390mwLp"}] }
   ],
   red: [
-    { id:"router", icon:"📡", name:"Router — TP-Link Archer BE550", model:"BE9300", status:"completo",
+    { id:"router-bell", icon:"🌐", name:"Router ISP — Bell Giga Hub 2", model:"Sagemcom FAST5697", status:"completo",
       specs:[
-        ["WiFi","WiFi 7 tri-banda (2.4/5/6GHz)"],
-        ["Velocidad total","BE9300 — 9.3Gbps combinado"],
-        ["Puertos","1x WAN 2.5G, 4x LAN 2.5G, 1x USB 3.0"],
-        ["Antenas","6 internas"],
-        ["Mesh","EasyMesh compatible"],
-        ["Fecha de compra","28 nov 2025 — $228.99 CAD"]
+        ["Servicio","Bell Fibe 3.0 (fibra), incluye ONT integrado"],
+        ["WiFi","WiFi 6/6E, 2.4/5/6GHz, 4x4 MIMO"],
+        ["Rol","Router/NAT/DHCP real de toda la casa"]
       ],
-      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1TY9iKhsEeo0qLJpHdfdLc4YdJkvQ-pHu"}] },
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1h6lNFOKnc2pEt3NlHKHzWlM09Bq2cOrN"}] },
     { id:"switch", icon:"🔀", name:"Switch — D-Link DGS-105GL", model:"DGS-105GL", status:"completo",
       specs:[
         ["Puertos","5x Gigabit Ethernet"],
-        ["Diseño","Metal, fanless, low profile"],
-        ["Configuración","Plug-and-play, no administrado"],
-        ["Eficiencia","IEEE 802.3az (EEE)"],
-        ["QoS","Sí"],
+        ["Ubicación","Junto al router Bell"],
+        ["Conecta","Router Bell, PC del hijo, torre, TP-Link (uplink)"],
         ["Fecha de compra","19 ago 2026 — $19.98 CAD"]
       ],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1lMfOlq-s_qfLI9cqixxQp1ULBZ0A07qZ"}] },
+    { id:"router", icon:"📡", name:"Access Point — TP-Link Archer BE550", model:"BE9300", status:"completo",
+      specs:[
+        ["Modo","Access Point (no NAT) — evita Doble NAT con el router Bell"],
+        ["Ubicación","Sala del TV, uplink Ethernet desde el switch D-Link"],
+        ["Conecta","TV Hisense, ThinkStation/Batocera (Ethernet) + WiFi resto de la casa"],
+        ["WiFi","WiFi 7 tri-banda (2.4/5/6GHz), BE9300 9.3Gbps combinado"],
+        ["Fecha de compra","28 nov 2025 — $228.99 CAD"]
+      ],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1TY9iKhsEeo0qLJpHdfdLc4YdJkvQ-pHu"}] },
     { id:"bombillos", icon:"💡", name:"Bombillos — Govee A19 (4-pack)", model:"B6004AC3", status:"completo",
       specs:[
         ["Potencia","9W, 800 lúmenes, E26"],
