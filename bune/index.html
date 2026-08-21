@@ -280,6 +280,29 @@
   .spec-val{ color:var(--bone); text-align:right; }
   .spec-val.warn{ color:var(--ember); }
 
+  .sheet-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.5rem;
+    margin-top:1.2rem;
+    padding-top:1rem;
+    border-top:1px solid var(--line);
+  }
+  .link-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    background:var(--surface-hover);
+    border:1px solid var(--gold-dim);
+    color:var(--gold-bright);
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;
+    text-decoration:none;
+    padding:.5rem .8rem;
+    border-radius:6px;
+  }
+  .link-btn:hover{ border-color:var(--gold-bright); background:var(--surface); }
+
   .empty-note{
     color:var(--bone-dim);
     font-size:.8rem;
@@ -348,6 +371,7 @@
     <h2 id="sheet-name"></h2>
     <div class="sheet-model" id="sheet-model"></div>
     <div id="sheet-specs"></div>
+    <div id="sheet-links" class="sheet-links"></div>
     <button class="close-btn" onclick="closeSheet()">Cerrar</button>
   </div>
 </div>
@@ -376,6 +400,9 @@ const DEVICES = {
         ["PSU","—"],
         ["Gabinete / color","—"],
         ["Fecha de compra","—"]
+      ],
+      links:[
+        {label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1eHSxEaS-oT_umbOc-65JpRRPggSuPZfl"}
       ]
     },
     {
@@ -391,21 +418,48 @@ const DEVICES = {
         ["Almacenamiento","⚠️ SSD M.2 PCIe Gen4 512GB–1TB — confirmar"],
         ["Pantalla","⚠️ 15.6\" FHD 144Hz o WQHD 165Hz — confirmar"],
         ["Fecha de compra","—"]
+      ],
+      links:[
+        {label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1FI9HpQuwcIqT9sZJDc7rvDO4XuMo1KU0"}
       ]
     }
   ],
   perifericos: [
-    { id:"monitor", icon:"🖼️", name:"Monitor", model:"ASUS ROG Strix XG32WCS", status:"pendiente", specs:[] },
-    { id:"teclado", icon:"⌨️", name:"Teclado", model:"Lenovo Legion K500 RGB Mechanical", status:"pendiente", specs:[] },
-    { id:"mouse", icon:"🖱️", name:"Mouse", model:"Lenovo USB Optical Mouse", status:"pendiente", specs:[] },
-    { id:"control", icon:"🎮", name:"Control", model:"Xbox Series X Advanced Wired Controller", status:"pendiente", specs:[] },
-    { id:"audio-bt", icon:"🎧", name:"Audífonos Bluetooth", model:"Sony WH-CH520", status:"pendiente", specs:[] },
-    { id:"audio-usb", icon:"🎧", name:"Audífonos USB", model:"Corsair HS80 RGB", status:"pendiente", specs:[] },
-    { id:"webcam", icon:"📷", name:"Webcam", model:"Anker PowerConf C200 (2K)", status:"pendiente", specs:[] },
-    { id:"hub", icon:"🔌", name:"Hub USB-C", model:"Anker 555 (8-in-1)", status:"pendiente", specs:[] }
+    { id:"monitor", icon:"🖼️", name:"Monitor", model:"ASUS ROG Strix XG32WCS", status:"pendiente", specs:[],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1i4iXAZc6-0yGIDharHkeRcvZv_auhd9L"}] },
+    { id:"teclado", icon:"⌨️", name:"Teclado", model:"Lenovo Legion K500 RGB Mechanical", status:"pendiente", specs:[],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1hO2HgPkaztJmIRv7Pfbz7me04q8pA0D4"}] },
+    { id:"mouse", icon:"🖱️", name:"Mouse", model:"Lenovo USB Optical Mouse", status:"pendiente", specs:[],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1vterfhYFVoKMK6Ick9MF0WMMuVOCTdtP"}] },
+    { id:"control", icon:"🎮", name:"Control", model:"Xbox Series X Advanced Wired Controller", status:"pendiente", specs:[],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1HY4J0QonZ78mC1cLOUEqowajvtRekl6I"}] },
+    { id:"audio-bt", icon:"🎧", name:"Audífonos Bluetooth", model:"Sony WH-CH520", status:"pendiente", specs:[],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1aEiLRX6gQB2oQvwoz7t0vMiccU4n82iH"}] },
+    { id:"audio-usb", icon:"🎧", name:"Audífonos USB", model:"Corsair HS80 RGB", status:"pendiente", specs:[],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1qTyICs0Z_lz1-w8I5ukGUqYbhjHg47I4"}] },
+    { id:"webcam", icon:"📷", name:"Webcam", model:"Anker PowerConf C200 (2K)", status:"pendiente", specs:[],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1W4X2QP3Ku1QYdvxIUKTAXuqe-tAqpcrR"}] },
+    { id:"hub", icon:"🔌", name:"Hub USB-C", model:"Anker 555 (8-in-1)", status:"pendiente", specs:[],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1pdQBdMCq26ltha9UGAFlc6V5KzQXmJc8"}] },
+    { id:"8bitdo", icon:"🕹️", name:"Arcade Stick — 8BitDo", model:"80FE", status:"completo",
+      specs:[
+        ["Conexiones","Bluetooth, 2.4G (receptor incluido), USB-C"],
+        ["Batería","Li-ion 1000mAh — ~40h (2.4G) / ~30h (BT)"],
+        ["Compatibilidad","Nintendo Switch/Switch 2, Windows (X-Input)"],
+        ["Joystick","8 vías, square gate, mounting plate universal (Sanwa JLF compatible)"],
+        ["Botones","8 arcade 30mm + macros P1/P2"],
+        ["FCC ID","2AOWF-ARCADE"]
+      ],
+      links:[
+        {label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1yGfX5qnxJF1XrUYqOLSGSRwvW2LbfrRZ"},
+        {label:"📄 Software Ultimate", url:"https://support.8bitdo.com/ultimate-software.html"},
+        {label:"🌐 Fabricante", url:"https://www.8bitdo.com/arcade-stick/"}
+      ]
+    }
   ],
   movil: [
-    { id:"pixel", icon:"📱", name:"Móvil", model:"Google Pixel 9 Pro", status:"pendiente", specs:[] }
+    { id:"pixel", icon:"📱", name:"Móvil", model:"Google Pixel 9 Pro", status:"pendiente", specs:[],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1C1T7_Go9xOBDkP8a2A-BsjfjputI-quE"}] }
   ]
 };
 
@@ -454,6 +508,8 @@ function openSheet(id){
       </div>
     `).join("");
   }
+  const linksEl = document.getElementById("sheet-links");
+  linksEl.innerHTML = (d.links || []).map(l => `<a class="link-btn" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join("");
   document.getElementById("overlay").classList.add("open");
 }
 
