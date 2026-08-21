@@ -218,6 +218,184 @@
   }
   .section-label:first-of-type{ margin-top:0; }
 
+  /* ---------- Mapa de Conexiones ---------- */
+  .netmap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:1.2rem .5rem 1.6rem;
+    overflow-x:auto;
+  }
+  .net-col{ display:flex; flex-direction:column; align-items:center; }
+  .net-connector{
+    width:1px;
+    height:22px;
+    background:var(--line);
+    flex-shrink:0;
+  }
+  .net-node{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:.35rem;
+    min-width:118px;
+    max-width:150px;
+    padding:.65rem .7rem .55rem;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:8px;
+    text-align:center;
+    transition:border-color .15s ease, background .15s ease, transform .12s ease;
+  }
+  .net-node.clickable{ cursor:pointer; }
+  .net-node.clickable:hover, .net-node.clickable:focus-visible{
+    border-color:var(--gold-dim);
+    background:var(--surface-hover);
+    outline:none;
+  }
+  .net-node.clickable:active{ transform:scale(.97); }
+  .net-node.net-key{
+    border-color:var(--gold-dim);
+    box-shadow:0 0 16px rgba(201,151,63,.10);
+  }
+  .net-node.net-key .net-avatar{ border-color:var(--gold); }
+  .net-node.net-unlisted{
+    border-style:dashed;
+    opacity:.65;
+  }
+  .net-node.net-root{
+    border-color:var(--ember);
+    background:var(--surface);
+  }
+  .net-avatar{
+    width:34px; height:34px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.05rem;
+    background:var(--bg);
+    border:1px solid var(--line);
+    background-size:cover;
+    background-position:center;
+    flex-shrink:0;
+  }
+  .net-root .net-avatar{
+    position:relative;
+  }
+  .net-root .net-avatar::after{
+    content:"";
+    position:absolute;
+    inset:-6px;
+    border-radius:50%;
+    border:1px solid var(--ember);
+    opacity:.5;
+    animation:net-pulse 2.4s ease-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .net-root .net-avatar::after{ animation:none; }
+  }
+  @keyframes net-pulse{
+    0%{ transform:scale(.9); opacity:.55; }
+    100%{ transform:scale(1.7); opacity:0; }
+  }
+  .net-name{
+    font-family:'Cinzel', serif;
+    font-weight:700;
+    font-size:.72rem;
+    letter-spacing:.01em;
+    color:var(--bone);
+    line-height:1.25;
+  }
+  .net-tag{
+    font-size:.6rem;
+    color:var(--bone-dim);
+    letter-spacing:.02em;
+  }
+
+  .net-tier-branch{
+    position:relative;
+    display:flex;
+    justify-content:center;
+    gap:1.1rem;
+    flex-wrap:wrap;
+    padding-top:22px;
+  }
+  .net-tier-branch::before{
+    content:"";
+    position:absolute;
+    top:0; height:1px;
+    left:59px; right:59px;
+    background:var(--line);
+  }
+  .net-branch-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .net-branch-item > .net-connector{ height:22px; }
+
+  .net-cloud{
+    margin-top:.2rem;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:.5rem;
+    padding:.7rem .8rem;
+    border:1px dashed var(--line);
+    border-radius:10px;
+    max-width:280px;
+  }
+  .net-cloud-label{
+    font-size:.6rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--bone-dim);
+  }
+  .net-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.4rem;
+    justify-content:center;
+  }
+  .net-chip{
+    display:flex;
+    align-items:center;
+    gap:.3rem;
+    font-size:.65rem;
+    padding:.32rem .55rem;
+    border-radius:100px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    color:var(--bone-dim);
+    cursor:pointer;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .net-chip:hover, .net-chip:focus-visible{
+    border-color:var(--gold-dim);
+    color:var(--bone);
+    outline:none;
+  }
+
+  .net-legend{
+    display:flex;
+    justify-content:center;
+    gap:1.1rem;
+    flex-wrap:wrap;
+    margin-top:1.2rem;
+    font-size:.6rem;
+    color:var(--bone-dim);
+  }
+  .net-legend span{ display:flex; align-items:center; gap:.35rem; }
+  .net-legend i{
+    width:8px; height:8px;
+    border-radius:50%;
+    display:inline-block;
+    background:var(--line);
+  }
+  .net-legend .dot-key{ background:var(--gold); }
+  .net-legend .dot-root{ background:var(--ember); }
+  .net-legend .dot-unlisted{ border:1px dashed var(--bone-dim); background:transparent; }
+
   /* Detail overlay */
   .overlay{
     position:fixed;
@@ -361,6 +539,15 @@
 
   <div class="section-label">Red</div>
   <div class="grid" id="grid-red"></div>
+
+  <div class="section-label">Mapa de Conexiones</div>
+  <div class="netmap" id="netmap"></div>
+  <div class="net-legend">
+    <span><i class="dot-root"></i> Internet</span>
+    <span><i class="dot-key"></i> Infraestructura de red</span>
+    <span><i></i> Toca cualquier nodo para ver detalles</span>
+    <span><i class="dot-unlisted"></i> Sin inventariar aún</span>
+  </div>
 
   <div class="section-label">Sala</div>
   <div class="grid" id="grid-sala"></div>
@@ -691,6 +878,102 @@ function closeSheet(){
 document.getElementById("overlay").addEventListener("click", e=>{
   if(e.target.id === "overlay") closeSheet();
 });
+
+/* =========================================================
+   MAPA DE CONEXIONES — árbol de topología de red.
+   Cada nodo: { id (matchea DEVICES para abrir su ficha, o null),
+                icon (emoji), name, tag (subtítulo opcional),
+                photo (URL — dejar null hasta tener foto real del
+                aparato; cuando la tengas, pegá el link acá y se
+                usa sola como avatar), key (true = nodo de
+                infraestructura, borde dorado), root/unlisted/cloud,
+                children: [...] }
+   ========================================================= */
+const NETMAP = {
+  id:null, icon:"🌐", name:"Internet", root:true, photo:null,
+  children:[
+    { id:"router-bell", icon:"📶", name:"Bell Giga Hub 2", tag:"Router · NAT/DHCP", key:true, photo:null,
+      children:[
+        { id:"switch", icon:"🔀", name:"Switch D-Link", tag:"junto al Bell", key:true, photo:null,
+          children:[
+            { id:"torre", icon:"🖥️", name:"Torre Legion T7", tag:"Ethernet · RTX 5090", photo:null },
+            { id:null, icon:"👦", name:"PC del hijo", tag:"sin inventariar", unlisted:true, photo:null },
+            { id:"router", icon:"📡", name:"TP-Link (modo AP)", tag:"sala del TV", key:true, photo:null,
+              children:[
+                { id:"tv", icon:"📺", name:"TV Hisense", tag:"Ethernet", photo:null },
+                { id:"thinkstation", icon:"🕹️", name:"ThinkStation", tag:"Ethernet + HDMI→TV", photo:null },
+                { id:null, icon:"📶", name:"WiFi", cloud:true, photo:null,
+                  children:[
+                    { id:"bombillos", icon:"💡", name:"Bombillos Govee", photo:null },
+                    { id:"googlehome", icon:"🔊", name:"Google Home Mini", photo:null },
+                    { id:"laptop", icon:"💻", name:"Laptop LOQ", photo:null },
+                    { id:"pixel", icon:"📱", name:"Pixel 9 Pro", photo:null },
+                    { id:"pixel10", icon:"📱", name:"Pixel 10 Pro", photo:null }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+function netAvatarStyle(node){
+  return node.photo ? `style="background-image:url('${node.photo}')"` : "";
+}
+
+function netNodeBox(node){
+  const clickable = node.id ? "clickable" : "";
+  const cls = ["net-node", clickable, node.key ? "net-key":"", node.unlisted ? "net-unlisted":"", node.root ? "net-root":""].join(" ").trim();
+  const clickAttrs = node.id
+    ? `tabindex="0" onclick="openSheet('${node.id}')" onkeypress="if(event.key==='Enter')openSheet('${node.id}')"`
+    : "";
+  return `
+    <div class="${cls}" ${clickAttrs}>
+      <div class="net-avatar" ${netAvatarStyle(node)}>${node.photo ? "" : node.icon}</div>
+      <div class="net-name">${node.name}</div>
+      ${node.tag ? `<div class="net-tag">${node.tag}</div>` : ""}
+    </div>`;
+}
+
+function netCloud(node){
+  const chips = (node.children||[]).map(c => {
+    const clickAttrs = c.id
+      ? `tabindex="0" onclick="openSheet('${c.id}')" onkeypress="if(event.key==='Enter')openSheet('${c.id}')"`
+      : "";
+    return `<div class="net-chip" ${clickAttrs}><span>${c.icon}</span><span>${c.name}</span></div>`;
+  }).join("");
+  return `
+    <div class="net-connector"></div>
+    <div class="net-cloud">
+      <div class="net-cloud-label">${node.name} — resto de la casa</div>
+      <div class="net-chips">${chips}</div>
+    </div>`;
+}
+
+function renderNetTree(node){
+  let html = netNodeBox(node);
+  const kids = node.children || [];
+  if(kids.length){
+    if(node.cloud){
+      /* rendered by caller via netCloud, not here */
+    } else if(kids.length === 1){
+      html += `<div class="net-connector"></div>` + renderNetTree(kids[0]);
+    } else {
+      html += `<div class="net-connector"></div><div class="net-tier-branch">` +
+        kids.map(c => {
+          if(c.cloud) return `<div class="net-branch-item">${netNodeBox(c)}${netCloud(c)}</div>`;
+          return `<div class="net-branch-item">${renderNetTree(c)}</div>`;
+        }).join("") +
+        `</div>`;
+    }
+  }
+  return `<div class="net-col">${html}</div>`;
+}
+
+document.getElementById("netmap").innerHTML = renderNetTree(NETMAP);
 
 renderGrid("grid-computo", DEVICES.computo);
 renderGrid("grid-perifericos", DEVICES.perifericos);
