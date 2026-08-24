@@ -752,7 +752,9 @@ const DEVICES = {
       specs:[
         ["Servicio","Bell Fibe 3.0 (fibra), incluye ONT integrado"],
         ["WiFi","WiFi 6/6E, 2.4/5/6GHz, 4x4 MIMO"],
-        ["Rol","Router/NAT/DHCP real de toda la casa"]
+        ["Rol","Router/NAT/DHCP real de toda la casa"],
+        ["Rango DHCP","192.168.2.10 – 192.168.2.254"],
+        ["Reservas fijas","5 (torre, ThinkStation, TV, TP-Link, PC hijo) — detalle y password admin en la ficha Drive, no acá (app pública)"]
       ],
       links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1h6lNFOKnc2pEt3NlHKHzWlM09Bq2cOrN"}] },
     { id:"switch", icon:"🔀", name:"Switch — D-Link DGS-105GL", model:"DGS-105GL", status:"completo",
@@ -789,7 +791,16 @@ const DEVICES = {
         ["Asistente","Google Assistant"],
         ["Nota","Dominio funcional Amon (domótica) — trackeado acá por estar en la red"]
       ],
-      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1tpHOFFS9zLs4fH4Vgh8ohKlsmAVuwPBE"}] }
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1tpHOFFS9zLs4fH4Vgh8ohKlsmAVuwPBE"}] },
+    { id:"pc-hijo", icon:"👦", name:"PC del hijo", model:"⚠️ sin identificar", status:"progreso",
+      specs:[
+        ["Hostname (router)","HOME-PC"],
+        ["MAC","d8:bb:c1:0d:28:7c"],
+        ["IP reservada","192.168.2.18"],
+        ["Conexión","Ethernet → Switch D-Link"],
+        ["⚠️ Falta","CPU/RAM/GPU/almacenamiento, fotos, fecha de compra"]
+      ],
+      links:[{label:"📁 Carpeta Drive", url:"https://drive.google.com/drive/folders/1wvPWlJMpJfDXsPagfZNcWC7_0gArvENk"}] }
   ],
   movil: [
     { id:"pixel", icon:"📱", name:"Móvil (Chucho)", model:"Google Pixel 9 Pro", status:"progreso",
@@ -899,7 +910,7 @@ const NETMAP = {
         { id:"switch", icon:"🔀", name:"Switch D-Link", tag:"junto al Bell", key:true, photo:null,
           children:[
             { id:"torre", icon:"🖥️", name:"Torre Legion T7", tag:"Ethernet · RTX 5090", photo:null },
-            { id:null, icon:"👦", name:"PC del hijo", tag:"sin inventariar", unlisted:true, photo:null },
+            { id:"pc-hijo", icon:"👦", name:"PC del hijo", tag:"192.168.2.18 · reservado", photo:null },
             { id:"router", icon:"📡", name:"TP-Link (modo AP)", tag:"sala del TV", key:true, photo:null,
               children:[
                 { id:"tv", icon:"📺", name:"TV Hisense", tag:"Ethernet", photo:null },
